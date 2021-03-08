@@ -1,4 +1,4 @@
-package practicas.main.models;
+package Ejercicio1y2.models;
 
 public class MyCalculator {
 

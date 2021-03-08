@@ -16,29 +16,46 @@ public class ClientesController {
 
     public void addCliente(){
         Cliente newCliente = new Cliente();
-        System.out.println("AGREGAR UN NUEVO CLIENTE: ");
-        newCliente.setName(new Inputs<String>().input("Nombre: " , String.class));
-        newCliente.setLastname(new Inputs<String>().input("apellido: " , String.class));
-        newCliente.setBirth(new Inputs<String>().input("cumpleaños: " , String.class));
-        newCliente.setPhoneNumber(new Inputs<String>().input("numero telefonico: " , String.class));
-        newCliente.setDNI(new Inputs<String>().input("DNI: " , String.class));
-
+        Inputs<String> inputStr = new Inputs<String>();
+        Inputs<Integer> inputItg = new Inputs<Integer>();
+        newCliente.setName(inputStr.input("Nombre: " , String.class));
+        newCliente.setLastname(inputStr.input("apellido: " , String.class));
+        newCliente.setBirth(inputStr.input("cumpleaños: " , String.class));
+        newCliente.setPhoneNumber(inputStr.input("numero telefonico: " , String.class));
+        newCliente.setDNI(inputStr.input("DNI: " , String.class));
         this.listClientes.add(empresa(newCliente));
 
     }
 
     private Cliente empresa(Cliente cliente){
-        System.out.println("Representa a una empresa? \n S/N" );
-        if(new Inputs<String>().input(" " , String.class).equals("S")){
-            ClienteEmpresa newClienteEmpre = (ClienteEmpresa) cliente;
-            newClienteEmpre.setCuit(new Inputs<String>().input("CUIT: " , String.class));
-            newClienteEmpre.setCondicionIVA(new Inputs<String>().input("IVA: " , String.class));
+        Inputs<String> inputStr = new Inputs<String>();
+        Inputs<Integer> inputItg = new Inputs<Integer>();
+        System.out.println("Representa a una empresa? \n 1_SI - 2_NO" );
+        if(inputItg.input(" " , Integer.class) == 1 ){
+           ClienteEmpresa newClienteEmpre = new ClienteEmpresa(cliente.getName() ,cliente.getLastname() , cliente.getBirth() , cliente.getPhoneNumber() , cliente.getDNI());
+            newClienteEmpre.setCuit(inputStr.input("CUIT: " , String.class));
+            newClienteEmpre.setCondicionIVA(inputStr.input("IVA: " , String.class));
 
             cliente = newClienteEmpre;
         }
         return cliente;
     }
 
+
+    public String getCliente(){
+        Inputs<String> inputStr = new Inputs<String>();
+        Cliente search = this.listClientes.get(inputStr.input("Ingrese nombre: " , String.class) , inputStr.input("Ingrese apellido: " , String.class));
+        return search.toString();
+    }
+
+    public void remove(){
+        Inputs<String> inputStr = new Inputs<String>();
+        this.listClientes.remove(inputStr.input("Ingrese nombre: " , String.class) , inputStr.input("Ingrese apellido: " , String.class));
+    }
+
+    public void viewClientes(){
+        this.listClientes.viewClientes();
+    }
 
 
 }

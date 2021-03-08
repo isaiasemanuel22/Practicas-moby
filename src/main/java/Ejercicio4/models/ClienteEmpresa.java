@@ -3,8 +3,18 @@ package Ejercicio4.models;
 public class ClienteEmpresa extends Cliente{
     private String cuit;
     private String condicionIVA;
+
     public ClienteEmpresa(){
+        super();
     }
+    public ClienteEmpresa(String name , String lastname , String birth , String phonenumber ,String DNI ){
+        super.setName(name);
+        super.setLastname(lastname);
+        super.setBirth(birth);
+        super.setPhoneNumber(phonenumber);
+        super.setDNI(DNI);
+    }
+
 
     public String getCuit() {
         return cuit;

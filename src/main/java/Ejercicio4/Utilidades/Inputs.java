@@ -22,7 +22,8 @@ public class Inputs <T>  {
              if (obj.equals(String.class)) {
                  String input = scan.nextLine();
                  entrada = (T) input;
-             }else{
+             }else
+                 if(obj.equals(Integer.class)){
                  Integer  input = null;
                  try {
                      input = scan.nextInt();
@@ -33,9 +34,19 @@ public class Inputs <T>  {
                  }
 
                  entrada = (T) input;
-             }
-         }
+             }else{
+                     Float  input = null;
+                     try {
+                         input = scan.nextFloat();
+                     }
+                     catch (InputMismatchException ex){
+                         System.out.println("Ingrese una entrada valida");
+                         scan.nextLine();
+                     }
 
+                     entrada = (T) input;
+                 }
+         }
 
          return entrada;
      }

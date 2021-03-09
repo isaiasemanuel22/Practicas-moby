@@ -51,11 +51,13 @@ public class Product implements JsonWrite{
 
     @Override
     public String toString() {
-        return
-                "name='" + this.name + '\'' +
-                ", marca='" + this.marca + '\'' +
-                ", precio=" + this.precio +
-                ", stock=" + this.stock + '\n';
+        return "Producto{" +'\n' +
+                "COD:'" + cod + '\n' +
+                "Nombre: " + name + '\n' +
+                "Marca: " + marca + '\n' +
+                "Precio: " + precio +'\n' +
+                "Stock: " + stock +'\n' +
+                '}';
     }
 
     private String creatCod(){

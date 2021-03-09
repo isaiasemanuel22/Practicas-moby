@@ -13,7 +13,7 @@ public class ProductsController {
         this.listproducts = new ProductsRepo();
     }
 
-    public void addProduct(){
+    public boolean addProduct(){
         Product newProduct = new Product();
         Inputs<String> inputStr = new Inputs<String>();
         Inputs<Integer> inputItg = new Inputs<Integer>();
@@ -23,16 +23,19 @@ public class ProductsController {
         newProduct.setPrecio(inputflt.input("Precio: " , Float.class));
         newProduct.setStock(inputItg.input("Stock: " , Integer.class));
         this.listproducts.add(newProduct);
+        return true;
 
     }
 
-    public String get(String cod){
-        Product search = this.listproducts.get(cod);
+    public String get(){
+        Inputs<String> inputStr = new Inputs<String>();
+        Product search = this.listproducts.get(inputStr.input("Ingrese Cod: ", String.class));
         return search.toString();
     }
 
-    public void remove(String cod){
-        this.listproducts.remove(cod);
+    public boolean remove(){
+        Inputs<String> inputStr = new Inputs<String>();
+       return  this.listproducts.remove(inputStr.input("Ingrese Cod: ", String.class));
     }
 
     public void viewProducts(){

@@ -34,11 +34,11 @@ public class ClienteEmpresa extends Cliente implements  JsonWrite{
 
     @Override
     public String toString() {
-        return "Cliente{ \n" +
-                "name: "+ super.getName() + '\n' +
-                "lastname: " + super.getLastname() + '\n' +
-                "birth: " + super.getBirth() + '\n' +
-                "phoneNumber: " + super.getPhoneNumber() + '\n' +
+        return "Cliente { \n" +
+                "Nombre: "+ super.getName() + '\n' +
+                "Apellido: " + super.getLastname() + '\n' +
+                "Fecha de nacimiento: " + super.getBirth() + '\n' +
+                "Numero telefonico: " + super.getPhoneNumber() + '\n' +
                 "DNI: " + super.getDNI() + '\n' +
                 "CUIT: " + this.cuit + '\n'+
                 "IVA: " + this.condicionIVA + '\n' +

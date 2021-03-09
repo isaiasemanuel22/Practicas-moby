@@ -50,10 +50,10 @@ public class Cliente implements JsonWrite {
     @Override
     public String toString() {
         return "Cliente{ \n" +
-                "name: "+ this.name + '\n' +
-                "lastname: " + this.lastname + '\n' +
-                "birth: " + this.birth + '\n' +
-                "phoneNumber: " + this.phoneNumber + '\n' +
+                "Nombre: "+ this.name + '\n' +
+                "Apellido: " + this.lastname + '\n' +
+                "Fecha de Nacimiento: " + this.birth + '\n' +
+                "Numero Telefonico: " + this.phoneNumber + '\n' +
                 "DNI: " + this.DNI + '\n' +
                 "}\n";
     }

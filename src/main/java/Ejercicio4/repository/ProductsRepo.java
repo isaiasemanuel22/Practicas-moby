@@ -15,7 +15,7 @@ public class ProductsRepo {
     public ProductsRepo() throws IOException {
         listProducts = new ArrayList<Product>();
         this.file = new Archivos<Product>("Productos.json");
-        this.listProducts = file.read(new Cliente());
+        this.listProducts = file.read(new Product());
     }
 
     public void add (Product newProduct){
@@ -24,11 +24,19 @@ public class ProductsRepo {
     }
 
     public Product get(String cod){
-      return listProducts.get(this.searchByCod(cod));
+        if(searchByCod(cod) > -1){
+            return listProducts.get(this.searchByCod(cod));
+        }
+        return null;
     }
 
     public boolean remove(String cod) {
-        return this.listProducts.remove(this.searchByCod(cod)).equals(Product.class);
+        if (this.searchByCod(cod) > -1){
+            this.listProducts.remove(this.searchByCod(cod));
+            file.save(listProducts);
+            return true;
+        }
+        return false;
     }
 
     public void viewProducts(){

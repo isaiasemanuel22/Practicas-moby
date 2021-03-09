@@ -1,6 +1,6 @@
 package Ejercicio4.models;
 
-public class ClienteEmpresa extends Cliente{
+public class ClienteEmpresa extends Cliente implements  JsonWrite{
     private String cuit;
     private String condicionIVA;
 
@@ -34,14 +34,27 @@ public class ClienteEmpresa extends Cliente{
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "name='" + super.getName() + '\'' +
-                ", lastname='" + super.getLastname() + '\'' +
-                ", birth='" + super.getBirth() + '\'' +
-                ", phoneNumber='" + super.getPhoneNumber() + '\'' +
-                ", DNI='" + super.getDNI() + '\'' +
-                "cuit='" + this.cuit + '\'' +
-                ", condicionIVA='" + this.condicionIVA + '\'' +
-                '}';
+        return "Cliente{ \n" +
+                "name: "+ super.getName() + '\n' +
+                "lastname: " + super.getLastname() + '\n' +
+                "birth: " + super.getBirth() + '\n' +
+                "phoneNumber: " + super.getPhoneNumber() + '\n' +
+                "DNI: " + super.getDNI() + '\n' +
+                "CUIT: " + this.cuit + '\n'+
+                "IVA: " + this.condicionIVA + '\n' +
+                "}\n";
+    }
+
+    @Override
+    public String writeJson(){
+        return "\n{\n" +
+                "name: "+ super.getName() + '\n' +
+                "lastname: " + super.getLastname() + '\n' +
+                "birth: " + super.getBirth() + '\n' +
+                "phoneNumber: " + super.getPhoneNumber() + '\n' +
+                "DNI: " + super.getDNI() + '\n' +
+                "CUIT: " + this.cuit + '\n'+
+                "IVA: " + this.condicionIVA + '\n' +
+                "}\n";
     }
 }

@@ -1,6 +1,6 @@
 package Ejercicio4.models;
 
-public class Pedido {
+public class Pedido implements JsonWrite {
     private String day;
     private String nameCliente;
 
@@ -13,8 +13,15 @@ public class Pedido {
     @Override
     public String toString() {
         return "Pedido{" +
-                "day='" + day + '\'' +
-                ", nameCliente='" + nameCliente + '\'' +
+                "day='" + this.day + '\'' +
+                ", nameCliente='" + this.nameCliente + '\'' +
                 '}';
+    }
+    @Override
+    public String writeJson(){
+        return "\n{\n" +
+                "day: " + this.day + '\n' +
+                "nameCliente: " + this.nameCliente + '\n' +
+                "}\n";
     }
 }

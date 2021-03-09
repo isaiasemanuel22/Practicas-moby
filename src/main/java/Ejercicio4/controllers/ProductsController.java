@@ -1,16 +1,15 @@
 package Ejercicio4.controllers;
 
 import Ejercicio4.Utilidades.Inputs;
-import Ejercicio4.models.Cliente;
 import Ejercicio4.models.Product;
 import Ejercicio4.repository.ProductsRepo;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class ProductsController {
     private ProductsRepo listproducts;
 
-    public ProductsController(){
+    public ProductsController() throws IOException {
         this.listproducts = new ProductsRepo();
     }
 

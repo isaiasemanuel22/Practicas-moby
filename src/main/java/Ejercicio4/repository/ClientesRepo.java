@@ -1,20 +1,25 @@
 package Ejercicio4.repository;
 
+import Ejercicio4.Utilidades.Archivos;
 import Ejercicio4.models.Cliente;
 import Ejercicio4.models.Product;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class ClientesRepo {
-    ArrayList<Cliente> listCliente;
-
-    public ClientesRepo(){
+    private ArrayList<Cliente> listCliente;
+    private Archivos<Cliente> file;
+    public ClientesRepo() throws IOException {
         this.listCliente = new ArrayList<Cliente>();
+        this.file = new Archivos<Cliente>("Clientes.json");
+        this.listCliente = file.read(new Cliente());
     }
 
-    public void add (Cliente newCliente){
+    public boolean add (Cliente newCliente){
         this.listCliente.add(newCliente);
+        this.file.save(this.listCliente);
+        return true;
     }
 
     public Cliente get(String name , String lastname){
@@ -22,7 +27,13 @@ public class ClientesRepo {
     }
 
     public boolean remove(String name , String lastname) {
-        return this.listCliente.remove(this.searchByName(name , lastname)).equals(Product.class);
+
+        if(this.searchByName(name , lastname) > -1){
+            this.listCliente.remove(searchByName(name , lastname));
+            file.save(this.listCliente);
+            return true;
+        }
+        return false;
     }
 
     public void viewClientes(){

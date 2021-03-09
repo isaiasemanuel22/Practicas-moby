@@ -1,19 +1,26 @@
 package Ejercicio4.repository;
 
+import Ejercicio4.Utilidades.Archivos;
+import Ejercicio4.models.Cliente;
 import Ejercicio4.models.Product;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class ProductsRepo {
-    LinkedList<Product> listProducts;
+    ArrayList<Product> listProducts;
+    private Archivos<Product> file;
 
-    public ProductsRepo(){
-        listProducts =  new LinkedList<Product>();
+    public ProductsRepo() throws IOException {
+        listProducts = new ArrayList<Product>();
+        this.file = new Archivos<Product>("Productos.json");
+        this.listProducts = file.read(new Cliente());
     }
 
     public void add (Product newProduct){
-        listProducts.add(newProduct);
+        this.listProducts.add(newProduct);
+        this.file.save(listProducts);
     }
 
     public Product get(String cod){

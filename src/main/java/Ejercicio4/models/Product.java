@@ -2,7 +2,7 @@ package Ejercicio4.models;
 
 import java.util.Random;
 
-public class Product {
+public class Product implements JsonWrite{
     private String cod;
     private String name;
     private String marca;
@@ -52,10 +52,10 @@ public class Product {
     @Override
     public String toString() {
         return
-                "name='" + name + '\'' +
-                ", marca='" + marca + '\'' +
-                ", precio=" + precio +
-                ", stock=" + stock + '\n';
+                "name='" + this.name + '\'' +
+                ", marca='" + this.marca + '\'' +
+                ", precio=" + this.precio +
+                ", stock=" + this.stock + '\n';
     }
 
     private String creatCod(){
@@ -72,4 +72,14 @@ public class Product {
         return cadena+alfa.charAt(forma)+numero;
 
     }
+    @Override
+    public String writeJson() {
+        return "\n{\n" +
+                "name: " + this.name + '\n' +
+                "marca: " + this.marca + '\n' +
+                "precio: " + this.precio + '\n' +
+                "stock: " + this.stock + '\n' +
+                "}\n";
+    }
+
 }

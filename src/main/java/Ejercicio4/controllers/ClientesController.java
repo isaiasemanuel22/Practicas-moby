@@ -5,16 +5,17 @@ import Ejercicio4.models.Cliente;
 import Ejercicio4.models.ClienteEmpresa;
 import Ejercicio4.repository.ClientesRepo;
 
+import java.io.IOException;
 
 
 public class ClientesController {
     private ClientesRepo listClientes;
 
-    public ClientesController(){
+    public ClientesController() throws IOException {
         listClientes = new ClientesRepo();
     }
 
-    public void addCliente(){
+    public boolean addCliente(){
         Cliente newCliente = new Cliente();
         Inputs<String> inputStr = new Inputs<String>();
         Inputs<Integer> inputItg = new Inputs<Integer>();
@@ -23,7 +24,7 @@ public class ClientesController {
         newCliente.setBirth(inputStr.input("cumpleaños: " , String.class));
         newCliente.setPhoneNumber(inputStr.input("numero telefonico: " , String.class));
         newCliente.setDNI(inputStr.input("DNI: " , String.class));
-        this.listClientes.add(empresa(newCliente));
+        return this.listClientes.add(empresa(newCliente));
 
     }
 
@@ -48,9 +49,9 @@ public class ClientesController {
         return search.toString();
     }
 
-    public void remove(){
+    public boolean remove(){
         Inputs<String> inputStr = new Inputs<String>();
-        this.listClientes.remove(inputStr.input("Ingrese nombre: " , String.class) , inputStr.input("Ingrese apellido: " , String.class));
+        return this.listClientes.remove(inputStr.input("Ingrese nombre: " , String.class) , inputStr.input("Ingrese apellido: " , String.class));
     }
 
     public void viewClientes(){

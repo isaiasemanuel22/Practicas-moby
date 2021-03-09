@@ -17,11 +17,16 @@ public class Inputs <T>  {
          Scanner scan = new Scanner(System.in);
 
          T entrada = null;
-         while (entrada == null){
+         do {
              System.out.println(mensaje);
              if (obj.equals(String.class)) {
-                 String input = scan.nextLine();
-                 entrada = (T) input;
+                 try {
+                     String input = scan.nextLine();
+                     entrada = (T) input;
+                 }catch (Exception e){
+                     scan.nextLine();
+                 }
+
              }else
                  if(obj.equals(Integer.class)){
                  Integer  input = null;
@@ -46,7 +51,8 @@ public class Inputs <T>  {
 
                      entrada = (T) input;
                  }
-         }
+
+         }while (entrada == null || entrada == "");
 
          return entrada;
      }

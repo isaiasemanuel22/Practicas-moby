@@ -2,18 +2,18 @@ package Ejercicio4.controllers;
 
 import Ejercicio4.Utilidades.Inputs;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Corralon {
 
     private static Corralon intance;
     private ClientesController clientes;
 
-    public Corralon(){
+    public Corralon() throws IOException {
         this.clientes = new ClientesController();
     }
 
-    public static Corralon start(){
+    public static Corralon start() throws IOException {
         if(intance == null){
             intance = new Corralon();
 
@@ -21,7 +21,7 @@ public class Corralon {
        return intance;
     }
 
-    public void run(){
+    public void run() throws IOException, InterruptedException {
         boolean exit = false;
        do {
             Inputs<Integer> input= new Inputs<Integer>();
@@ -41,7 +41,7 @@ public class Corralon {
 
     }
 
-    private void menuCliente(){
+    private void menuCliente() throws IOException, InterruptedException {
         boolean exit = false;
         do {
             Inputs<Integer> input= new Inputs<Integer>();
@@ -54,10 +54,28 @@ public class Corralon {
 
             switch (entada) {
                 case 0 -> exit = true;
-                case 1 -> this.clientes.addCliente();
-                case 2 -> this.clientes.viewClientes();
-                case 3 -> System.out.println(this.clientes.getCliente());
-                case 4 -> this.clientes.remove();
+                case 1 -> {if(this.clientes.addCliente()){
+                    System.out.println("Creado exitosamente");
+                }else {
+                    System.out.println("Fallo la creacion de cuenta");
+                }
+                }
+
+                case 2 -> {this.clientes.viewClientes();
+                            input.input(" " , String.class);
+                            break;
+                }
+                case 3 -> {System.out.println(this.clientes.getCliente());
+                input.input(" " , String.class);
+                break;}
+
+                case 4 -> {if(this.clientes.remove()){
+                    System.out.println("Eliminado Correctamente");
+                }else{
+                    System.out.println("Fallo la eliminacion de cuenta");
+                }
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + entada);
             }
         }while (!exit);
     }
@@ -102,7 +120,6 @@ public class Corralon {
             }
         }while (!exit);
     }
-
 
 
 

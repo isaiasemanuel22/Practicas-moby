@@ -1,6 +1,9 @@
 package Ejercicio4.controllers;
 
 import Ejercicio4.Utilidades.Inputs;
+import Ejercicio4.models.Cliente;
+import Ejercicio4.models.Order;
+import Ejercicio4.repository.OrderRepo;
 
 import java.io.IOException;
 
@@ -9,10 +12,12 @@ public class Corralon {
     private static Corralon intance;
     private ClientesController clientes;
     private ProductsController productos;
+    private OrderController orders;
 
     public Corralon() throws IOException {
         this.clientes = new ClientesController();
         this.productos = new ProductsController();
+        this.orders = new OrderController();
     }
 
     public static Corralon start() throws IOException {
@@ -66,8 +71,13 @@ public class Corralon {
                 case 2 -> {this.clientes.viewClientes();
                             input.input(" " , String.class);
                 }
-                case 3 -> {System.out.println(this.clientes.getCliente());
-                input.input(" " , String.class);
+                case 3 -> {
+                    Cliente cliente = this.clientes.getCliente();
+                    if( ! (cliente.getName() == null) ){
+                        System.out.println(cliente.toString());
+                        input.input(" " , String.class);
+                    }
+
                 break;}
 
                 case 4 -> {if(this.clientes.remove()){
@@ -124,22 +134,44 @@ public class Corralon {
         boolean exit = false;
         do {
             Inputs<Integer> input= new Inputs<Integer>();
-            System.out.println("1_ Agregar Cliente");
-            System.out.println("2_ Mostrar Clientes");
-            System.out.println("3_ Mostrar Un Cliente");
-            System.out.println("4_ Eliminar Un Cliente");
+            System.out.println("1_ Agregar Pedido");
+            System.out.println("2_ Mostrar Pedidos");
             System.out.println("0_ Salir");
             int entada = input.input("Ingrese una opcion: " , Integer.class);
 
             switch (entada) {
                 case 0 -> exit = true;
-                case 1 -> this.clientes.addCliente();
-                case 2 -> this.clientes.viewClientes();
-                case 3 -> this.clientes.getCliente();
-                case 4 -> this.clientes.remove();
+                case 1 -> { Order order  = this.orders.addOrder();
+                            if(order.getNameClient()!=null){
+                                submenuOrder(order);
+                            }
+                            }
+                case 2 -> this.orders.viewOrders();
             }
         }while (!exit);
     }
+
+    private void submenuOrder(Order order){
+        boolean exit = false;
+        do {
+            Inputs<Integer> input= new Inputs<Integer>();
+            System.out.println("1_ Calcular total Bruto");
+            System.out.println("2_ Asignar Pago");
+            System.out.println("3_ Calcular total Neto");
+            System.out.println("4_ Cobrar");
+            System.out.println("0_ Salir");
+            int entada = input.input("Ingrese una opcion: " , Integer.class);
+
+            switch (entada) {
+                case 0 -> exit = true;
+                case 1 -> System.out.println(order.calcularTotalBruto());
+                case 2 -> System.out.println(this.orders.assignPayment(order));
+                case 3 -> System.out.println(this.orders.calcularNeto(order));
+                case 4 -> System.out.println(this.orders.charge(order));
+            }
+        }while (!exit);
+    }
+
 
 
 

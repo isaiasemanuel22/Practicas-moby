@@ -6,13 +6,14 @@ import Ejercicio4.models.ClienteEmpresa;
 import Ejercicio4.repository.ClientesRepo;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ClientesController {
     private ClientesRepo listClientes;
 
     public ClientesController() throws IOException {
-        listClientes = new ClientesRepo();
+       listClientes = ClientesRepo.getInstance();
     }
 
     public boolean addCliente(){
@@ -21,7 +22,7 @@ public class ClientesController {
         Inputs<Integer> inputItg = new Inputs<Integer>();
         newCliente.setName(inputStr.input("Nombre: " , String.class));
         newCliente.setLastname(inputStr.input("apellido: " , String.class));
-        newCliente.setBirth(inputStr.input("cumpleaños: " , String.class));
+        newCliente.setBirth(inputStr.input("fecha de nacimiento: " , String.class));
         newCliente.setPhoneNumber(inputStr.input("numero telefonico: " , String.class));
         newCliente.setDNI(inputStr.input("DNI: " , String.class));
         return this.listClientes.add(empresa(newCliente));
@@ -43,10 +44,18 @@ public class ClientesController {
     }
 
 
-    public String getCliente(){
+    public Cliente getCliente() {
         Inputs<String> inputStr = new Inputs<String>();
-        Cliente search = this.listClientes.get(inputStr.input("Ingrese nombre: " , String.class) , inputStr.input("Ingrese apellido: " , String.class));
-        return search.toString();
+        Cliente cliente = new Cliente();
+        ArrayList<Cliente> list = this.listClientes.get(inputStr.input("Ingrese nombre: ", String.class), inputStr.input("Ingrese apellido: ", String.class));
+        if (list.size() == 1) {
+            cliente = list.get(0);
+        } else if (list.size() > 1) {
+            cliente = this.listClientes.getByDNI(list , inputStr.input("DNI: ", String.class));
+        } else{
+            System.out.println("El cliente ingresado no existe");
+        }
+        return cliente;
     }
 
     public boolean remove(){

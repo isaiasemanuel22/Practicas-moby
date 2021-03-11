@@ -10,7 +10,7 @@ public class ProductsController {
     private ProductsRepo listproducts;
 
     public ProductsController() throws IOException {
-        this.listproducts = new ProductsRepo();
+        this.listproducts = ProductsRepo.getInstance();
     }
 
     public boolean addProduct(){
@@ -30,6 +30,9 @@ public class ProductsController {
     public String get(){
         Inputs<String> inputStr = new Inputs<String>();
         Product search = this.listproducts.get(inputStr.input("Ingrese Cod: ", String.class));
+        if(search.getName() == null){
+            return "";
+        }
         return search.toString();
     }
 

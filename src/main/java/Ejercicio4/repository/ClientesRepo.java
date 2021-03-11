@@ -6,14 +6,25 @@ import Ejercicio4.models.Product;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ClientesRepo {
     private ArrayList<Cliente> listCliente;
     private Archivos<Cliente> file;
-    public ClientesRepo() throws IOException {
+    private static ClientesRepo instance;
+
+    private ClientesRepo() throws IOException {
         this.listCliente = new ArrayList<Cliente>();
         this.file = new Archivos<Cliente>("Clientes.json");
         this.listCliente = file.read(new Cliente());
+    }
+
+    public static ClientesRepo getInstance() throws IOException {
+        if(instance == null){
+            instance = new ClientesRepo();
+        }
+        return instance;
     }
 
     public boolean add (Cliente newCliente){
@@ -22,9 +33,29 @@ public class ClientesRepo {
         return true;
     }
 
-    public Cliente get(String name , String lastname){
-        return this.listCliente.get(this.searchByName(name , lastname));
+    public ArrayList<Cliente> get(String name , String lastname){
+
+        Stream<Cliente> list =  listCliente.stream().filter(cliente -> cliente.getName().equals(name)).filter(cliente -> cliente.getLastname().equals(lastname));
+
+        ArrayList<Cliente> listSearch = (ArrayList<Cliente>) list.collect(Collectors.toList());
+
+        return listSearch;
     }
+
+    public ArrayList<Cliente> getAll() {
+        return listCliente;
+    }
+
+    public Cliente getByDNI(ArrayList<Cliente> list , String dni){
+
+        Cliente client = list.stream().filter(cliente -> cliente.getDNI().equals(dni)).findFirst().get();
+
+        if(client.getName() == null){
+            System.out.println("El cliente no existe");
+        }
+        return client;
+    }
+
 
     public boolean remove(String name , String lastname) {
 
@@ -36,11 +67,10 @@ public class ClientesRepo {
         return false;
     }
 
-    public void viewClientes(){
 
+    public void viewClientes(){
         this.listCliente.stream().map(Cliente::toString)
                 .forEach(System.out::println);
-
     }
 
     private int searchByName(String name , String lastname){

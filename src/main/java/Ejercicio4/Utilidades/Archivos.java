@@ -1,15 +1,12 @@
 package Ejercicio4.Utilidades;
 import Ejercicio4.models.Cliente;
 import Ejercicio4.models.ClienteEmpresa;
-import Ejercicio4.models.Pedido;
+import Ejercicio4.models.Order;
 import Ejercicio4.models.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Archivos <T>{
 
@@ -56,10 +53,10 @@ public class Archivos <T>{
                 ObjectMapper mapper = new ObjectMapper();
                 list = (mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(ArrayList.class, Product.class)));
 
-            }else if(obj.getClass().equals(Pedido.class)){
+            }else if(obj.getClass().equals(Order.class)){
 
                 ObjectMapper mapper = new ObjectMapper();
-                list = (mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(ArrayList.class, Pedido.class)));
+                list = (mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(ArrayList.class, Order.class)));
             }
 
         }
